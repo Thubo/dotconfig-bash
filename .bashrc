@@ -293,7 +293,7 @@ set_prompt ()
   else
     PS1+="${White}:\w"
     # PS1+=" ${Yellow}\$(hg_ps1)"
-    PS1+=" ${Yellow}$(git_branch)"
+    PS1+="${Yellow}$(git_branch)"
     PS1+="${Yellow}$(git_numbers)"
     PS1+="\n"
     PS1+="${White}\${Last_Command} "
