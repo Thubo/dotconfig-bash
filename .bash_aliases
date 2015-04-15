@@ -3,6 +3,11 @@ if [[ ! -f ~/.pwd ]]; then
   touch ~/.pwd
 fi
 
+# Make sure .bash_aliases.d exists
+# if [[ ! -d $HOME/.bash_aliases.d ]]; then
+#   mkdir -p $HOME/.bash_aliases.d
+# fi
+
 # Make some possibly destructive commands more interactive.
 alias rm='rm -i'
 alias mv='mv -i'
@@ -36,6 +41,7 @@ alias awknf2="awk '{print \$(NF-2)}'"
 alias swd="echo $(pwd) > ~/.pwd"
 alias goto="cd $(cat ~/.pwd)"
 alias root="sudo su -"
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias dist-upgrade="sudo apt-get -qqq update; sudo apt-get -y dist-upgrade; alert"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
