@@ -3,11 +3,6 @@ if [[ ! -f ~/.pwd ]]; then
   touch ~/.pwd
 fi
 
-# Make sure .bash_aliases.d exists
-# if [[ ! -d $HOME/.bash_aliases.d ]]; then
-#   mkdir -p $HOME/.bash_aliases.d
-# fi
-
 # Make some possibly destructive commands more interactive.
 alias rm='rm -i'
 alias mv='mv -i'
@@ -61,3 +56,8 @@ alias hgv='hg view'
 # Programms
 alias irssi='screen -S irssi -xR irssi'
 alias mrj='mr -j10'
+
+# Source any file in $HOME/.bash_aliases.d/
+if [ -d $HOME/.bash_aliases.d ]; then
+    for file in $HOME/.bash_aliases.d/*; do . $file; done
+fi
