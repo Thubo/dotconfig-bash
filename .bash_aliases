@@ -44,14 +44,14 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias cssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 # Mercurial
-alias hgb='hg bookmark'
-alias hgc='hg crecord'
-alias hgh='hg help'
-alias hgi='hg incoming -gn --stat -p'
-alias hgo='hg outgoing -gn --stat -p'
-alias hgp='grep "default" .hg/hgrc'
-alias hgs='hg status'
-alias hgv='hg view'
+# alias hgb='hg bookmark'
+# alias hgc='hg crecord'
+# alias hgh='hg help'
+# alias hgi='hg incoming -gn --stat -p'
+# alias hgo='hg outgoing -gn --stat -p'
+# alias hgp='grep "default" .hg/hgrc'
+# alias hgs='hg status'
+# alias hgv='hg view'
 
 # Programms
 alias irssi='screen -S irssi -xR irssi'
