@@ -317,7 +317,7 @@ set_prompt ()
 # Sync the history with every new prompy between shells
 export PROMPT_COMMAND='history -a; history -c; history -r; set_prompt'
 # 'Normal' history behavior
-export PROMPT_COMMAND='set_prompt'
+# export PROMPT_COMMAND='set_prompt'
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
