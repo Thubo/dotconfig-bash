@@ -101,10 +101,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-if [ -d ~/.bash_aliases.d ]; then
-    . ~/.bash_aliases.d/*
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -318,7 +314,10 @@ set_prompt ()
   fi
 
 }
+# Sync the history with every new prompy between shells
 export PROMPT_COMMAND='history -a; history -c; history -r; set_prompt'
+# 'Normal' history behavior
+export PROMPT_COMMAND='set_prompt'
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
