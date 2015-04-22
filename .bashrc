@@ -136,10 +136,14 @@ fi
 
 #-----------------------------------------------------------------------------#
 # Git Exports
-export GIT_AUTHOR_NAME="Matthias Thubauville"
-export GIT_AUTHOR_EMAIL=matthias.thubo@gmail.com
-export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+# Replaced by ~/.gitconfig.local :
+# [user]
+#   name  = Matthias Thubauville
+#   email = matthias.thubo@gmail.com
+# export GIT_AUTHOR_NAME="Matthias Thubauville"
+# export GIT_AUTHOR_EMAIL=matthias.thubo@gmail.com
+# export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+# export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 #-----------------------------------------------------------------------------#
 # HG Prompt
@@ -315,9 +319,9 @@ set_prompt ()
 
 }
 # Sync the history with every new prompy between shells
-export PROMPT_COMMAND='history -a; history -c; history -r; set_prompt'
+# export PROMPT_COMMAND='history -a; history -c; history -r; set_prompt'
 # 'Normal' history behavior
-# export PROMPT_COMMAND='set_prompt'
+export PROMPT_COMMAND='set_prompt'
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
