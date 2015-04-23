@@ -38,8 +38,3 @@ for exp in \
 do
         export $exp
 done
-
-# Dynamic 'motd' - not realy a motd, but similar function
-if type dynmotd > /dev/null 2>&1 ; then
-  dynmotd
-fi
