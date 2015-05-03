@@ -6,8 +6,8 @@
 
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
-#umask 022
-umask 077
+umask 022
+# umask 077
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -34,7 +34,7 @@ done
 
 # export further variables
 for exp in \
-          "EDITOR=vim"
+  "EDITOR=vim"
 do
-        export $exp
+  export $exp
 done
