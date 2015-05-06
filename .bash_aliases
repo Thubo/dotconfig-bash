@@ -24,6 +24,7 @@ alias l='ls -CF'
 alias grep='grep --color=auto --exclude-dir=\.svn'
 alias vi='vim'
 alias tmux='tmux -2'
+alias view='vim -R'
 
 # Nice Stuff
 alias ..='cd ..'
@@ -38,7 +39,7 @@ alias swd="echo $(pwd) > ~/.pwd"
 alias goto="cd $(cat ~/.pwd)"
 alias root="sudo su -"
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-alias dist-upgrade="sudo apt-get -qqq update; sudo apt-get -y dist-upgrade; alert"
+alias dist-upgrade="sudo apt-get -qqq update; sudo apt-get -y dist-upgrade; sudo apt-get autoremove; sudo apt-get autoremove; alert"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias myscreen='screen -RR $USER'
 
