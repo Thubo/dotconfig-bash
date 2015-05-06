@@ -111,7 +111,7 @@ bind '"\e[B": history-search-forward'
 ulimit -s unlimited
 
 # Make tab-completion behave sort of zsh-like
-#bind 'TAB:menu-complete'
+# bind 'TAB:menu-complete'
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
