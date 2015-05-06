@@ -149,8 +149,10 @@ export GIT_PROMPT=1
 function toggle_git_prompt () {
 if [[ $GIT_PROMPT == 1 ]]; then
   GIT_PROMPT=0
+  echo "git prompt is disabled!"
 else
   GIT_PROMPT=1
+  echo "git prompt is enabled!"
 fi
 }
 
@@ -236,6 +238,7 @@ function toggle_prompt () {
  else
    SIMPLE_PROMPT=0
  fi
+ toggle_git_prompt
 }
 
 #-----------------------------------------------------------------------------#
