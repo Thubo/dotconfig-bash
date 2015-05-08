@@ -145,6 +145,16 @@ fi
 
 #-----------------------------------------------------------------------------#
 # Git Prompt
+export GIT_PROMPT=1
+function toggle_git_prompt () {
+if [[ $GIT_PROMPT == 1 ]]; then
+  GIT_PROMPT=0
+  echo "git prompt is disabled!"
+else
+  GIT_PROMPT=1
+  echo "git prompt is enabled!"
+fi
+}
 
 # function git_color {
 #   local git_status="$(git status 2> /dev/null)"
@@ -161,6 +171,10 @@ fi
 # }
 
 function git_branch {
+  if [[ $GIT_PROMPT == 0 ]]; then
+    exit 0
+  fi
+
   local git_status="$(git status 2> /dev/null)"
   local on_branch="On branch ([^${IFS}]*)"
   local on_commit="HEAD detached at ([^${IFS}]*)"
@@ -175,6 +189,10 @@ function git_branch {
 }
 
 function git_numbers {
+  if [[ $GIT_PROMPT == 0 ]]; then
+    exit 0
+  fi
+
   local untracked="$(git ls-files --others --exclude-standard 2>/dev/null | wc -l)"
   local modified="$(git ls-files -m 2>/dev/null | wc -l)"
   local staged="$(git diff --name-only --cached 2>/dev/null | wc -l)"
@@ -220,6 +238,7 @@ function toggle_prompt () {
  else
    SIMPLE_PROMPT=0
  fi
+ toggle_git_prompt
 }
 
 #-----------------------------------------------------------------------------#

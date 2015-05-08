@@ -23,6 +23,8 @@ alias l='ls -CF'
 # and exclude grepping through .svn folders.
 alias grep='grep --color=auto --exclude-dir=\.svn'
 alias vi='vim'
+alias tmux='tmux -2'
+alias view='vim -R'
 
 # Nice Stuff
 alias ..='cd ..'
