@@ -7,6 +7,7 @@ fi
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
+alias cpr='cp -i -r'
 
 # Add some easy shortcuts for formatted directory listings and add a touch of color.
 alias ll='ls -lhF --color=auto'
