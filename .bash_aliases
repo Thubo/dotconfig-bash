@@ -23,9 +23,14 @@ alias l='ls -CF'
 # Make grep more user friendly by highlighting matches
 # and exclude grepping through .svn folders.
 alias grep='grep --color=auto --exclude-dir=\.svn'
+
+# Software
 alias vi='vim'
 alias tmux='tmux -2'
 alias view='vim -R'
+alias g='git'
+alias myscreen='screen -RR $USER'
+alias gitconfig='vim $HOME/.gitconfig'
 
 # Nice Stuff
 alias ..='cd ..'
@@ -40,9 +45,9 @@ alias swd="echo $(pwd) > ~/.pwd"
 alias goto="cd $(cat ~/.pwd)"
 alias root="sudo su -"
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+
 alias dist-upgrade="sudo apt-get -qqq update; sudo apt-get -y dist-upgrade; sudo apt-get -y autoremove; alert"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias myscreen='screen -RR $USER'
 
 # Ugly Stuff
 alias cssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"

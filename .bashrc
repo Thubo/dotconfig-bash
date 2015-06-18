@@ -178,6 +178,20 @@ fi
 #   fi
 # }
 
+
+function git_modified {
+  if [[ $GIT_PROMPT == 0 ]]; then
+    exit 0
+  fi
+
+  local global_modified="$(git status -s 2>/dev/null | wc -l)"
+
+  if [[ $global_modified -gt 0 ]]; then
+    echo " !"
+  fi
+
+}
+
 function git_branch {
   if [[ $GIT_PROMPT == 0 ]]; then
     exit 0
@@ -315,6 +329,7 @@ set_prompt ()
   else
     PS1+="${White}:\w"
     # PS1+=" ${Yellow}\$(hg_ps1)"
+    PS1+="${Yellow}$(git_modified)"
     PS1+="${Yellow}$(git_branch)"
     PS1+="${Yellow}$(git_numbers)"
     PS1+="\n"
