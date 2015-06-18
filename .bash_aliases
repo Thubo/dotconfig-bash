@@ -10,15 +10,14 @@ alias cp='cp -i'
 alias cpr='cp -i -r'
 
 # Add some easy shortcuts for formatted directory listings and add a touch of color.
-alias ll='ls -lhF --color=auto'
-alias lm='ls -lhF --color=auto | more'
-alias lt='ls -lhFtr --color=auto'
 alias la='ls -AhlF --color=auto'
-alias lA='ls -Ahld --color=auto .?*'
-alias lh='ls -AhlF --color=auto -d .*'
 alias lam='ls -AhlF --color=auto | more'
-alias ls='ls -F'
-alias l='ls -CF'
+alias lh='ls -Ahld --color=auto .?*'
+alias lhm='ls -Ahld --color=auto .?* | more'
+alias ll='ls -lhF --color=auto'
+alias llm='ls -lhF --color=auto | more'
+alias ls='ls -CF'
+alias lt='ls -lhFtr --color=auto'
 
 # Make grep more user friendly by highlighting matches
 # and exclude grepping through .svn folders.
