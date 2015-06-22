@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *) return;;
+    *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -271,30 +271,30 @@ function reload_bashrc () {
 }
 
 #-----------------------------------------------------------------------------#
+# Colors
+Black='\[\e[0;30m\]'
+Darkgrey='\[\e[1;30m\]'
+Lightgrey='\[\e[0;37m\]'
+White='\[\e[1;37m\]'
+Red='\[\e[0;31m\]'
+Lightred='\[\e[1;31m\]'
+Green='\[\e[0;32m\]'
+Lightgreen='\[\e[1;32m\]'
+Brown='\[\e[0;33m\]'
+Yellow='\[\e[1;33m\]'
+Blue='\[\e[0;34m\]'
+Lightblue='\[\e[1;34m\]'
+Purple='\[\e[0;35m\]'
+Lightpurple='\[\e[1;35m\]'
+Cyan='\[\e[0;36m\]'
+Lightcyan='\[\e[1;36m\]'
+Reset='\[\e[0m\]'
+# FancyX='\342\234\227'
+# Checkmark='\342\234\223'
 # Improve prompt
 set_prompt ()
 {
   Last_Command=$? # Must come first!
-  Black='\[\e[0;30m\]'
-  Darkgrey='\[\e[1;30m\]'
-  Lightgrey='\[\e[0;37m\]'
-  White='\[\e[1;37m\]'
-  Red='\[\e[0;31m\]'
-  Lightred='\[\e[1;31m\]'
-  Green='\[\e[0;32m\]'
-  Lightgreen='\[\e[1;32m\]'
-  Brown='\[\e[0;33m\]'
-  Yellow='\[\e[1;33m\]'
-  Blue='\[\e[0;34m\]'
-  Lightblue='\[\e[1;34m\]'
-  Purple='\[\e[0;35m\]'
-  Lightpurple='\[\e[1;35m\]'
-  Cyan='\[\e[0;36m\]'
-  Lightcyan='\[\e[1;36m\]'
-  Reset='\[\e[0m\]'
-
-  # FancyX='\342\234\227'
-  # Checkmark='\342\234\223'
 
   # Add a bright white exit status for the last command
   # PS1="$White\$? "
@@ -312,12 +312,6 @@ set_prompt ()
   # allow 'su root' this works fine.
   if [[ $EUID == 0 ]]; then
     PS1="${Lightred}\\u@\\h"
-    PS1+="${White}:\w"
-    PS1+="\n"
-    PS1+="${White}\${Last_Command} "
-    PS1+="${Lightred}T${TIER}"
-    PS1+="${Lightred}# "
-    PS1+="${Reset}"
   else
     PS1="${Lightgreen}\\u@\\h"
   fi

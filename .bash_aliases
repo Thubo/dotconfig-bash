@@ -42,7 +42,8 @@ alias awknf="awk '{print \$NF}'"
 alias bsource="source ~/.bashrc"
 alias swd="echo $(pwd) > ~/.pwd"
 alias goto="cd $(cat ~/.pwd)"
-alias root="sudo su -"
+alias root="sudo -i"
+alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 
 alias dist-upgrade="sudo apt-get -qqq update; sudo apt-get -y dist-upgrade; sudo apt-get -y autoremove; alert"
