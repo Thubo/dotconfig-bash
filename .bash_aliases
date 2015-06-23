@@ -42,7 +42,8 @@ alias awknf="awk '{print \$NF}'"
 alias bsource="source ~/.bashrc"
 alias swd="echo $(pwd) > ~/.pwd"
 alias goto="cd $(cat ~/.pwd)"
-alias root="sudo su -"
+alias root="sudo -i"
+alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias dus='du * -sh | sort -h'
 
