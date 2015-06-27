@@ -30,6 +30,7 @@ alias view='vim -R'
 alias g='git'
 alias myscreen='screen -RR $USER'
 alias gitconfig='vim $HOME/.gitconfig'
+alias enw='emacs -nw'
 
 # Nice Stuff
 alias ..='cd ..'
