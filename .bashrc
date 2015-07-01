@@ -63,15 +63,6 @@ fi
 # fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-# case "$TERM" in
-# xterm*|rxvt*)
-#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-#     ;;
-# *)
-#     ;;
-# esac
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -107,12 +98,6 @@ fi
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# Unlimit number of processes
-ulimit -s unlimited
-
-# Make tab-completion behave sort of zsh-like
-# bind 'TAB:menu-complete'
-
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
@@ -120,115 +105,6 @@ ulimit -s unlimited
 if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
-
-#-----------------------------------------------------------------------------#
-#-----------------------------------------------------------------------------#
-#-----------------------------------------------------------------------------#
-# Ruby Version Manager
-if [[ -e $HOME/.rvm/scripts/rvm ]]; then
-  source "$HOME/.rvm/scripts/rvm"
-fi
-
-# Wine Export
-#export WINEARCH=win32
-#export WINEPREFIX=~/.win32
-
-#-----------------------------------------------------------------------------#
-# Git Exports
-# Replaced by ~/.gitconfig.local :
-# [user]
-#   name  = Matthias Thubauville
-#   email = matthias.thubo@gmail.com
-# export GIT_AUTHOR_NAME="Matthias Thubauville"
-# export GIT_AUTHOR_EMAIL=matthias.thubo@gmail.com
-# export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-# export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-
-#-----------------------------------------------------------------------------#
-# HG Prompt
-# hg_ps1() {
-#   #hg prompt "{ on {branch}}{ at {bookmark}} {>>{status}}{update} {in:[+{incoming|count}]} {out:[+{outgoing|count}]}" 2> /dev/null
-#   hg prompt "{ [hg] on {branch}}{ at {bookmark}} {>>{status}}{update}" 2> /dev/null
-# }
-
-#-----------------------------------------------------------------------------#
-# Git Prompt
-export GIT_PROMPT=1
-function toggle_git_prompt () {
-if [[ $GIT_PROMPT == 1 ]]; then
-  GIT_PROMPT=0
-  echo "git prompt is disabled!"
-else
-  GIT_PROMPT=1
-  echo "git prompt is enabled!"
-fi
-}
-
-# function git_color {
-#   local git_status="$(git status 2> /dev/null)"
-#
-#   if [[ ! $git_status =~ "working directory clean" ]]; then
-#     echo -e $COLOR_RED
-#   elif [[ $git_status =~ "Your branch is ahead of" ]]; then
-#     echo -e $COLOR_YELLOW
-#   elif [[ $git_status =~ "nothing to commit" ]]; then
-#     echo -e $COLOR_GREEN
-#   else
-#     echo -e $COLOR_OCHRE
-#   fi
-# }
-
-
-function git_modified {
-  if [[ $GIT_PROMPT == 0 ]]; then
-    exit 0
-  fi
-
-  local global_modified="$(git status -s 2>/dev/null | wc -l)"
-
-  if [[ $global_modified -gt 0 ]]; then
-    echo " !"
-  fi
-
-}
-
-function git_branch {
-  if [[ $GIT_PROMPT == 0 ]]; then
-    exit 0
-  fi
-
-  local git_status="$(git status 2> /dev/null)"
-  local on_branch="On branch ([^${IFS}]*)"
-  local on_commit="HEAD detached at ([^${IFS}]*)"
-
-  if [[ $git_status =~ $on_branch ]]; then
-    local branch=${BASH_REMATCH[1]}
-    echo " [git] on $branch"
-  elif [[ $git_status =~ $on_commit ]]; then
-    local commit=${BASH_REMATCH[1]}
-    echo " [git] at ($commit)"
-  fi
-}
-
-function git_numbers {
-  if [[ $GIT_PROMPT == 0 ]]; then
-    exit 0
-  fi
-
-  local untracked="$(git ls-files --others --exclude-standard 2>/dev/null | wc -l)"
-  local modified="$(git ls-files -m 2>/dev/null | wc -l)"
-  local staged="$(git diff --name-only --cached 2>/dev/null | wc -l)"
-
-  if [[ $untracked -gt 0 ]]; then
-    echo -n " ?$untracked"
-  fi
-  if [[ $modified -gt 0 ]]; then
-    echo -n " >$modified"
-  fi
-  if [[ $staged -gt 0 ]]; then
-    echo -n " ^$staged"
-  fi
-}
 
 #-----------------------------------------------------------------------------#
 # Tiering
@@ -245,23 +121,6 @@ function de_tier {
 # The actual trap
 trap de_tier EXIT
 # Now use $TIER to get the tiering level
-
-#-----------------------------------------------------------------------------#
-# Toggle prompt
-# The simpler prompt has no newline and no mercurial information,
-# this makes it easier to copy&paste code for example to store it wordpress
-# Default is the non-simple mode:
-export SIMPLE_PROMPT=0
-# Switch between modes: Since the set_prompt command is called everytime a
-# prompt is printed, the changes is instantaneous.
-function toggle_prompt () {
- if [[ $SIMPLE_PROMPT == 0 ]]; then
-   SIMPLE_PROMPT=1
- else
-   SIMPLE_PROMPT=0
- fi
- toggle_git_prompt
-}
 
 #-----------------------------------------------------------------------------#
 # Reload my bashrc
@@ -296,63 +155,16 @@ set_prompt ()
 {
   Last_Command=$? # Must come first!
 
-  # Add a bright white exit status for the last command
-  # PS1="$White\$? "
-  # # If it was successful, print a green check mark. Otherwise, print
-  # # a red X.
-  # if [[ $Last_Command == 0 ]]; then
-  #   PS1+="$Green$Checkmark "
-  # else
-  #   PS1+="$Red$FancyX "
-  # fi
-
-  # If root, just print the host in red. Otherwise, print the current user
-  # and host in green.
-  # This does not work well on ubuntu, but on any other distribution, which
-  # allow 'su root' this works fine.
-  if [[ $EUID == 0 ]]; then
     PS1="${Lightred}\\u@\\h"
-  else
-    PS1="${Lightgreen}\\u@\\h"
-  fi
-
-  if [[ $SIMPLE_PROMPT == 1 ]]; then
     PS1+="${White}:\w "
-    PS1+="${White}# "
-    PS1+="${Reset}"
-  else
-    PS1+="${White}:\w"
-    # PS1+=" ${Yellow}\$(hg_ps1)"
-    PS1+="${Yellow}$(git_modified)"
-    PS1+="${Yellow}$(git_branch)"
-    PS1+="${Yellow}$(git_numbers)"
     PS1+="\n"
     PS1+="${White}\${Last_Command} "
     PS1+="${Lightred}T${TIER} "
     PS1+="${White}# "
     PS1+="${Reset}"
-  fi
-
-  # Set current path to Terminator title
-  if [ "$TERM" == "xterm" ]; then
-    setWindowTitle() {
-      echo -ne "\e]2;$*\a"
-    }
-    updateWindowTitle() {
-      setWindowTitle "${USER%%.*}@${HOSTNAME%%.*}:${PWD/$HOME/~}"
-    }
-    updateWindowTitle
-  fi
 
 }
 # Sync the history with every new prompy between shells
 # export PROMPT_COMMAND='history -a; history -c; history -r; set_prompt'
 # 'Normal' history behavior
 export PROMPT_COMMAND='set_prompt'
-#-----------------------------------------------------------------------------#
-# Dynamic 'motd' - not realy a motd, but similar function
-if type dynmotd > /dev/null 2>&1 ; then
-  dynmotd
-fi
-#-----------------------------------------------------------------------------#
-#-----------------------------------------------------------------------------#
