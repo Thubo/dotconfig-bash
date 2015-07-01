@@ -16,12 +16,14 @@ alias lh='ls -Ahld --color=auto .?*'
 alias lhm='ls -Ahld --color=auto .?* | more'
 alias ll='ls -lhF --color=auto'
 alias llm='ls -lhF --color=auto | more'
-alias ls='ls -CF'
+alias ls='ls -CF --color=auto'
 alias lt='ls -lhFtr --color=auto'
 
 # Make grep more user friendly by highlighting matches
 # and exclude grepping through .svn folders.
-alias grep='grep --color=auto --exclude-dir=\.svn'
+alias grep='grep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
+alias fgrep='fgrep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
+alias egrep='egrep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
 
 # Software
 alias vi='vim'
