@@ -1,6 +1,13 @@
+################################################################################
+# .bashrc for root
+#
+# Author: Matthias Thubauville
+#
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+#
+################################################################################
 
 # If not running interactively, don't do anything
 case $- in
@@ -130,6 +137,12 @@ Lightcyan='\[\e[1;36m\]'
 Reset='\[\e[0m\]'
 # FancyX='\342\234\227'
 # Checkmark='\342\234\223'
+
+#-----------------------------------------------------------------------------#
+# Warning
+echo -e "\e[1;31m >> You are root << \e[0m"
+
+#-----------------------------------------------------------------------------#
 # Improve prompt
 set_prompt ()
 {
