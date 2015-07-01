@@ -65,17 +65,13 @@ fi
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
-# Source special aliases
+# Source special stuff
+# Name the files .alias, .function and .bash to clarify what they do.  Note,
+# however that the naming does not change the way they are treated. Make sure
+# only you can write in this directory, since it is a way to inject some bad
+# code in your environment.
 if [ -d $HOME/.bash.d ]; then
-  for file in $HOME/.bash.d/*.alias; do . $file; done
-fi
-# Source special functions
-if [ -d $HOME/.bash.d ]; then
-  for file in $HOME/.bash.d/*.function; do . $file; done
-fi
-# Source special configs
-if [ -d $HOME/.bash.d ]; then
-  for file in $HOME/.bash.d/*.bash; do . $file; done
+  for file in $HOME/.bash.d/*; do . $file; done
 fi
 
 #-----------------------------------------------------------------------------#
