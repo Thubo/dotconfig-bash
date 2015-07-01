@@ -51,6 +51,18 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
 #-----------------------------------------------------------------------------#
+# Git Exports
+# Replaced by ~/.gitconfig.local :
+# [user]
+#   name  = Matthias Thubauville
+#   email = matthias.thubo@gmail.com
+export GIT_AUTHOR_NAME="Matthias Thubauville"
+export GIT_AUTHOR_EMAIL=matthias.thubo@gmail.com
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+
+
+#-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 # Source global aliases
