@@ -71,7 +71,3 @@ alias cssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias irssi='screen -S irssi -xR irssi'
 alias mrj='mr -j10'
 
-# Source any file in $HOME/.bash_aliases.d/
-if [ -d $HOME/.bash_aliases.d ]; then
-    for file in $HOME/.bash_aliases.d/*; do . $file; done
-fi
