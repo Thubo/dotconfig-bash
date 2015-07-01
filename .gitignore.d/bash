@@ -3,5 +3,5 @@
 !/.bash_functions
 !/.bashrc
 !/.gitignore.d
-!/.gitignore.d/bash_user
+!/.gitignore.d/bash
 !/.profile
