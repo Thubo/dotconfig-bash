@@ -21,6 +21,10 @@ uc()
 }
 
 #-----------------------------------------------------------------------------#
+# color: Use this to make stderr show in red
+color()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1
+
+#-----------------------------------------------------------------------------#
 # wtfis: Show what a given command really is. It is a combination of "type", "file"
 # and "ls". Unlike "which", it does not only take $PATH into account. This
 # means it works for aliases and hashes, too. (The name "whatis" was taken,
