@@ -309,11 +309,13 @@ netstat_free_local_port()
 # connection_overview: get stats-overview about your connections
 netstat_connection_overview()
 {
-  netstat -nat \
+  (echo "#Count #Status" && \
+   netstat -nat \
+    | grep tcp \
     | awk '{print $6}' \
     | sort \
     | uniq -c \
-    | sort -n
+    | sort -n) | column -t
 }
 
 #-----------------------------------------------------------------------------#
