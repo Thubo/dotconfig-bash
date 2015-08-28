@@ -164,30 +164,34 @@ wtfis()
             || echo "$path_tmp"
         )"
 
-        # Then, combine the output of "type" and "file".
-        local fileinfo="$(file "$full_path_tmp")"
-        echo "${type_tmp%$path_tmp}${fileinfo}"
+        if [ -d $full_path_tmp ]; then
+          type $cmd
+        else
+          # Then, combine the output of "type" and "file".
+          local fileinfo="$(file "$full_path_tmp")"
+          echo "${type_tmp%$path_tmp}${fileinfo}"
 
-        # Finally, show it using "ls" and highlight the path.
-        # If the path is a symlink, keep going until we find the
-        # final destination. (This assumes there are no circular
-        # references.)
-        local paths_tmp=("$path_tmp")
-        local target_path_tmp="$path_tmp"
+          # Finally, show it using "ls" and highlight the path.
+          # If the path is a symlink, keep going until we find the
+          # final destination. (This assumes there are no circular
+          # references.)
+          local paths_tmp=("$path_tmp")
+          local target_path_tmp="$path_tmp"
 
-        while [ -L "$target_path_tmp" ]; do
-          target_path_tmp="$(readlink "$target_path_tmp")"
-          paths_tmp+=("$(
-            # Do some relative path resolving for systems
-            # without readlink --canonicalize.
-            cd "$(dirname "$path_tmp")"
-            cd "$(dirname "$target_path_tmp")"
-            echo "$PWD/$(basename "$target_path_tmp")"
-          )")
-        done
+          while [ -L "$target_path_tmp" ]; do
+            target_path_tmp="$(readlink "$target_path_tmp")"
+            paths_tmp+=("$(
+              # Do some relative path resolving for systems
+              # without readlink --canonicalize.
+              cd "$(dirname "$path_tmp")"
+              cd "$(dirname "$target_path_tmp")"
+              echo "$PWD/$(basename "$target_path_tmp")"
+            )")
+          done
 
-        local ls="$(command ls -fdalF "${paths_tmp[@]}")"
-        echo "${ls/$path_tmp/$'\e[7m'${path_tmp}$'\e[27m'}"
+          local ls="$(command ls -fdalF "${paths_tmp[@]}")"
+          echo "${ls/$path_tmp/$'\e[7m'${path_tmp}$'\e[27m'}"
+        fi
       fi
     fi
 
