@@ -51,7 +51,6 @@ alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias dus='du * -sh | sort -h'
 alias das='find . -maxdepth 1 -name ".?*" | xargs du -sch | sort -h'
 
-alias dist-upgrade="sudo apt-get -qqq update; sudo apt-get -y dist-upgrade; sudo apt-get -y autoremove; alert"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Ugly Stuff
@@ -69,5 +68,5 @@ alias cssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 # Programms
 alias irssi='screen -S irssi -xR irssi'
-alias mrj='mr -j10'
+alias mrj='mr -m -j10'
 

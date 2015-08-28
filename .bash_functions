@@ -1,4 +1,21 @@
 #-----------------------------------------------------------------------------#
+# dist-upgrade: update your os
+dist-upgrade()
+{
+  sudo echo 'Starting Update'
+  sudo apt-get -qqq update
+  sudo apt-get -y dist-upgrade
+  sudo apt-get -y autoremove
+  alert
+}
+#-----------------------------------------------------------------------------#
+# isodate: print the current date in iso format
+isodate()
+{
+  date +"%Y-%m-%dT%H:%M:%S%z"
+}
+
+#-----------------------------------------------------------------------------#
 # lc: Convert the parameters or STDIN to lowercase.
 lc()
 {
@@ -19,6 +36,10 @@ uc()
     tr '[:lower:]' '[:upper:]' <<< "$@"
   fi
 }
+
+#-----------------------------------------------------------------------------#
+# color: Use this to make stderr show in red
+color()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1
 
 #-----------------------------------------------------------------------------#
 # wtfis: Show what a given command really is. It is a combination of "type", "file"
@@ -143,30 +164,34 @@ wtfis()
             || echo "$path_tmp"
         )"
 
-        # Then, combine the output of "type" and "file".
-        local fileinfo="$(file "$full_path_tmp")"
-        echo "${type_tmp%$path_tmp}${fileinfo}"
+        if [ -d $full_path_tmp ]; then
+          type $cmd
+        else
+          # Then, combine the output of "type" and "file".
+          local fileinfo="$(file "$full_path_tmp")"
+          echo "${type_tmp%$path_tmp}${fileinfo}"
 
-        # Finally, show it using "ls" and highlight the path.
-        # If the path is a symlink, keep going until we find the
-        # final destination. (This assumes there are no circular
-        # references.)
-        local paths_tmp=("$path_tmp")
-        local target_path_tmp="$path_tmp"
+          # Finally, show it using "ls" and highlight the path.
+          # If the path is a symlink, keep going until we find the
+          # final destination. (This assumes there are no circular
+          # references.)
+          local paths_tmp=("$path_tmp")
+          local target_path_tmp="$path_tmp"
 
-        while [ -L "$target_path_tmp" ]; do
-          target_path_tmp="$(readlink "$target_path_tmp")"
-          paths_tmp+=("$(
-            # Do some relative path resolving for systems
-            # without readlink --canonicalize.
-            cd "$(dirname "$path_tmp")"
-            cd "$(dirname "$target_path_tmp")"
-            echo "$PWD/$(basename "$target_path_tmp")"
-          )")
-        done
+          while [ -L "$target_path_tmp" ]; do
+            target_path_tmp="$(readlink "$target_path_tmp")"
+            paths_tmp+=("$(
+              # Do some relative path resolving for systems
+              # without readlink --canonicalize.
+              cd "$(dirname "$path_tmp")"
+              cd "$(dirname "$target_path_tmp")"
+              echo "$PWD/$(basename "$target_path_tmp")"
+            )")
+          done
 
-        local ls="$(command ls -fdalF "${paths_tmp[@]}")"
-        echo "${ls/$path_tmp/$'\e[7m'${path_tmp}$'\e[27m'}"
+          local ls="$(command ls -fdalF "${paths_tmp[@]}")"
+          echo "${ls/$path_tmp/$'\e[7m'${path_tmp}$'\e[27m'}"
+        fi
       fi
     fi
 
@@ -284,11 +309,13 @@ netstat_free_local_port()
 # connection_overview: get stats-overview about your connections
 netstat_connection_overview()
 {
-  netstat -nat \
+  (echo "#Count #Status" && \
+   netstat -nat \
+    | grep tcp \
     | awk '{print $6}' \
     | sort \
     | uniq -c \
-    | sort -n
+    | sort -n) | column -t
 }
 
 #-----------------------------------------------------------------------------#
@@ -430,7 +457,7 @@ t()
     return 1
   else
     if [ $2 ]; then
-      tail -n 50 -f $1 | perl -pe "s/$2/${COLOR_LIGHT_RED}$&${COLOR_NO_COLOUR}/g"
+      tail -n 50 -f $1 | perl -pe "s/$2/\e[1;32;40m$&\e[0m/g"
     else
       tail -n 50 -f $1
     fi
