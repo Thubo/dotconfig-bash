@@ -68,5 +68,5 @@ alias cssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 # Programms
 alias irssi='screen -S irssi -xR irssi'
-alias mrj='mr -j10'
+alias mrj='mr -m -j10'
 
