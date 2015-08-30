@@ -27,7 +27,7 @@ alias egrep='egrep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
 
 # Software
 alias vi='vim'
-alias tmux='tmux -2'
+alias tmux='tmux -2 -u'
 alias view='vim -R'
 alias g='git'
 alias myscreen='screen -RR $USER'
