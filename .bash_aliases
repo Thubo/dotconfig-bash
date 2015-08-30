@@ -31,6 +31,7 @@ alias tmux='tmux -2 -u'
 alias view='vim -R'
 alias g='git'
 alias myscreen='screen -RR $USER'
+alias mytmux='tmux -2 -u new-session -A -s $USER'
 alias gitconfig='vim $HOME/.gitconfig'
 alias enw='emacs -nw'
 
