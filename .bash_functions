@@ -274,6 +274,24 @@ testConnection()
 }
 
 #-----------------------------------------------------------------------------#
+# myip: return my own ips
+myip()
+{
+  ip addr | grep "inet " | grep -v 127 | cut -d / -f1 | awk '{print $2}'
+}
+
+#-----------------------------------------------------------------------------#
+# host2ip & ip2host: convert ip to hostname and vice versa
+host2ip()
+{
+  host $1 | awk '{print $NF}' | sed 's/\.$//g'
+}
+ip2host()
+{
+  host2ip $1
+}
+
+#-----------------------------------------------------------------------------#
 # netstat_used_local_ports: get used tcp-ports
 netstat_used_local_ports()
 {
@@ -440,6 +458,12 @@ server()
   local port="${1:-${free_port}}"
 
   # sleep 1 && o "http://localhost:${port}/" &
+
+  echo "Serving at..."
+  echo " ->  http://127.0.0.1:${port}"
+  for ip in $(myip); do
+    echo " ->  http://${ip}:${port}"
+  done
 
   # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
   # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
