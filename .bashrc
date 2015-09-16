@@ -1,5 +1,4 @@
 ################################################################################
-# .bashrc for user
 #
 # Author: Matthias Thubauville
 #
@@ -57,8 +56,6 @@ fi
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# Unlimit number of processes
-ulimit -s unlimited
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
@@ -91,17 +88,6 @@ fi
 if [[ -e $HOME/.rvm/scripts/rvm ]]; then
   source "$HOME/.rvm/scripts/rvm"
 fi
-
-#-----------------------------------------------------------------------------#
-# Git Exports
-# Replaced by ~/.gitconfig.local :
-# [user]
-#   name  = Matthias Thubauville
-#   email = matthias.thubo@gmail.com
-# export GIT_AUTHOR_NAME="Matthias Thubauville"
-# export GIT_AUTHOR_EMAIL=matthias.thubo@gmail.com
-# export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-# export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 #-----------------------------------------------------------------------------#
 # HG Prompt
