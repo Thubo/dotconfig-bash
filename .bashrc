@@ -138,6 +138,12 @@ Reset='\[\e[0m\]'
 # FancyX='\342\234\227'
 # Checkmark='\342\234\223'
 
+# Function to set the Window title
+setWindowTitle()
+{
+  echo -ne '\033k'$*'\033\\'
+}
+
 #-----------------------------------------------------------------------------#
 # Improve prompt
 set_prompt ()
@@ -151,6 +157,14 @@ set_prompt ()
     PS1+="${Lightred}T${TIER} "
     PS1+="${White}# "
     PS1+="${Reset}"
+
+  # Set terminal title to current user@host:/path
+  case $TERM in
+    xterm* | screen)
+        # setWindowTitle "${USER%%.*}@${HOSTNAME%%.*}:${PWD/$HOME/~}"
+        setWindowTitle "${USER%%.*}@${HOSTNAME%%.*}"
+      ;;
+  esac
 
 }
 # Sync the history with every new prompy between shells
