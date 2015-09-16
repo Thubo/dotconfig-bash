@@ -49,8 +49,6 @@ alias goto="cd $(cat ~/.pwd)"
 alias root="sudo -i"
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-alias dus='du * -sh | sort -h'
-alias das='find . -maxdepth 1 -name ".?*" | xargs du -sch | sort -h'
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 

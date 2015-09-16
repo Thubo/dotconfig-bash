@@ -68,8 +68,8 @@ if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 # Source global functions
-if [ -f ~/.bash_functions ]; then
-  . ~/.bash_functions
+if [ -d $HOME/.bash_functions ]; then
+  for file in $HOME/.bash_functions/*.sh; do . $file; done
 fi
 
 #-----------------------------------------------------------------------------#
@@ -147,7 +147,6 @@ function git_modified {
   if [[ $global_modified -gt 0 ]]; then
     echo " !"
   fi
-
 }
 
 function git_branch {
