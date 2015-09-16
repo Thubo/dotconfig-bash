@@ -229,7 +229,8 @@ function reload_bashrc () {
 }
 
 #-----------------------------------------------------------------------------#
-# Colors
+#-----------------------------------------------------------------------------#
+# Colors & Prompt
 Black='\[\e[0;30m\]'
 Darkgrey='\[\e[1;30m\]'
 Lightgrey='\[\e[0;37m\]'
@@ -249,6 +250,12 @@ Lightcyan='\[\e[1;36m\]'
 Reset='\[\e[0m\]'
 # FancyX='\342\234\227'
 # Checkmark='\342\234\223'
+#-----------------------------------------------------------------------------#
+# Function to set the Window title
+setWindowTitle()
+{
+  echo -ne '\033k'$*'\033\\'
+}
 # Improve prompt
 set_prompt ()
 {
@@ -283,17 +290,13 @@ set_prompt ()
     PS1+="${Reset}"
   fi
 
-  # Set current path to Terminator title
-  if [ "$TERM" == "xterm" ]; then
-    setWindowTitle() {
-      echo -ne "\e]2;$*\a"
-    }
-    updateWindowTitle() {
-      setWindowTitle "${USER%%.*}@${HOSTNAME%%.*}:${PWD/$HOME/~}"
-    }
-    updateWindowTitle
-  fi
-
+  # Set terminal title to current user@host:/path
+  case $TERM in
+    xterm* | screen)
+        # setWindowTitle "${USER%%.*}@${HOSTNAME%%.*}:${PWD/$HOME/~}"
+        setWindowTitle "${USER%%.*}@${HOSTNAME%%.*}"
+      ;;
+  esac
 }
 # Sync the history with every new prompy between shells
 # export PROMPT_COMMAND='history -a; history -c; history -r; set_prompt'
