@@ -251,7 +251,11 @@ Reset='\[\e[0m\]'
 # Checkmark='\342\234\223'
 #-----------------------------------------------------------------------------#
 # Function to set the Window title
-setWindowTitle()
+setxtermWindowTitle()
+{
+  echo -ne '\033]2;'$*'\007'
+}
+setscreenWindowTitle()
 {
   echo -ne '\033k'$*'\033\\'
 }
@@ -290,10 +294,13 @@ set_prompt ()
   fi
 
   # Set terminal title to current user@host:/path
+  WINDOW_TITLE="${USER%%.*}@${HOSTNAME%%.*}"
   case $TERM in
-    xterm* | screen)
-        # setWindowTitle "${USER%%.*}@${HOSTNAME%%.*}:${PWD/$HOME/~}"
-        setWindowTitle "${USER%%.*}@${HOSTNAME%%.*}"
+    xterm* )
+        setxtermWindowTitle "$WINDOW_TITLE"
+      ;;
+    screen* )
+        setscreenWindowTitle "$WINDOW_TITLE"
       ;;
   esac
 }
