@@ -77,8 +77,8 @@ if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 # Source global functions
-if [ -f ~/.bash_functions ]; then
-  . ~/.bash_functions
+if [ -d $HOME/.bash_functions ]; then
+  for file in $HOME/.bash_functions/*.sh; do . $file; done
 fi
 
 #-----------------------------------------------------------------------------#
@@ -92,6 +92,98 @@ fi
 if [ -d $HOME/.bash.d ]; then
   for file in $HOME/.bash.d/*; do . $file; done
 fi
+
+#-----------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------#
+# Ruby Version Manager
+if [[ -e $HOME/.rvm/scripts/rvm ]]; then
+  source "$HOME/.rvm/scripts/rvm"
+fi
+
+#-----------------------------------------------------------------------------#
+# HG Prompt
+# hg_ps1() {
+#   #hg prompt "{ on {branch}}{ at {bookmark}} {>>{status}}{update} {in:[+{incoming|count}]} {out:[+{outgoing|count}]}" 2> /dev/null
+#   hg prompt "{ [hg] on {branch}}{ at {bookmark}} {>>{status}}{update}" 2> /dev/null
+# }
+
+#-----------------------------------------------------------------------------#
+# Git Prompt
+export GIT_PROMPT=1
+function toggle_git_prompt () {
+if [[ $GIT_PROMPT == 1 ]]; then
+  GIT_PROMPT=0
+  echo "git prompt is disabled!"
+else
+  GIT_PROMPT=1
+  echo "git prompt is enabled!"
+fi
+}
+
+# function git_color {
+#   local git_status="$(git status 2> /dev/null)"
+#
+#   if [[ ! $git_status =~ "working directory clean" ]]; then
+#     echo -e $COLOR_RED
+#   elif [[ $git_status =~ "Your branch is ahead of" ]]; then
+#     echo -e $COLOR_YELLOW
+#   elif [[ $git_status =~ "nothing to commit" ]]; then
+#     echo -e $COLOR_GREEN
+#   else
+#     echo -e $COLOR_OCHRE
+#   fi
+# }
+
+function git_modified {
+  if [[ $GIT_PROMPT == 0 ]]; then
+    exit 0
+  fi
+
+  local global_modified="$(git status -s 2>/dev/null | wc -l)"
+
+  if [[ $global_modified -gt 0 ]]; then
+    echo " !"
+  fi
+}
+
+function git_branch {
+  if [[ $GIT_PROMPT == 0 ]]; then
+    exit 0
+  fi
+
+  local git_status="$(git status 2> /dev/null)"
+  local on_branch="On branch ([^${IFS}]*)"
+  local on_commit="HEAD detached at ([^${IFS}]*)"
+
+  if [[ $git_status =~ $on_branch ]]; then
+    local branch=${BASH_REMATCH[1]}
+    echo " [git] on $branch"
+  elif [[ $git_status =~ $on_commit ]]; then
+    local commit=${BASH_REMATCH[1]}
+    echo " [git] at ($commit)"
+  fi
+}
+
+function git_numbers {
+  if [[ $GIT_PROMPT == 0 ]]; then
+    exit 0
+  fi
+
+  local untracked="$(git ls-files --others --exclude-standard 2>/dev/null | wc -l)"
+  local modified="$(git ls-files -m 2>/dev/null | wc -l)"
+  local staged="$(git diff --name-only --cached 2>/dev/null | wc -l)"
+
+  if [[ $untracked -gt 0 ]]; then
+    echo -n " ?$untracked"
+  fi
+  if [[ $modified -gt 0 ]]; then
+    echo -n " >$modified"
+  fi
+  if [[ $staged -gt 0 ]]; then
+    echo -n " ^$staged"
+  fi
+}
 
 #-----------------------------------------------------------------------------#
 # Tiering
@@ -110,6 +202,23 @@ trap de_tier EXIT
 # Now use $TIER to get the tiering level
 
 #-----------------------------------------------------------------------------#
+# Toggle prompt
+# The simpler prompt has no newline and no mercurial information,
+# this makes it easier to copy&paste code for example to store it wordpress
+# Default is the non-simple mode:
+export SIMPLE_PROMPT=0
+# Switch between modes: Since the set_prompt command is called everytime a
+# prompt is printed, the changes is instantaneous.
+function toggle_prompt () {
+ if [[ $SIMPLE_PROMPT == 0 ]]; then
+   SIMPLE_PROMPT=1
+ else
+   SIMPLE_PROMPT=0
+ fi
+ toggle_git_prompt
+}
+
+#-----------------------------------------------------------------------------#
 # Reload my bashrc
 function reload_bashrc () {
   source ~/.bashrc
@@ -117,7 +226,8 @@ function reload_bashrc () {
 }
 
 #-----------------------------------------------------------------------------#
-# Colors
+#-----------------------------------------------------------------------------#
+# Colors & Prompt
 Black='\[\e[0;30m\]'
 Darkgrey='\[\e[1;30m\]'
 Lightgrey='\[\e[0;37m\]'
