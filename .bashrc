@@ -52,6 +52,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Dircolors
+eval "`dircolors`"
+
 # Search in history
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
