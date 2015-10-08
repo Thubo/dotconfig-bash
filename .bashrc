@@ -57,8 +57,12 @@ fi
 eval "`dircolors`"
 
 # Search in history
+# ...using the arrow keys
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
+# ...using CTRL+P/N
+bind '"\C-p": history-search-backward'
+bind '"\C-n": history-search-forward'
 
 # Unlimit number of processes
 ulimit -s unlimited
