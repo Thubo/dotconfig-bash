@@ -53,9 +53,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Dircolors
+eval "`dircolors`"
+
 # Search in history
+# ...using the arrow keys
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
+# ...using CTRL+P/N
+bind '"\C-p": history-search-backward'
+bind '"\C-n": history-search-forward'
 
 # Unlimit number of processes
 ulimit -s unlimited
@@ -294,6 +301,7 @@ set_prompt ()
   fi
 
   # Set terminal title to current user@host:/path
+  # WINDOW_TITLE="${USER%%.*}@${HOSTNAME%%.*}:${PWD/$HOME/~}"
   WINDOW_TITLE="${USER%%.*}@${HOSTNAME%%.*}"
   case $TERM in
     xterm* )
