@@ -61,6 +61,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Ugly Stuff
 alias cssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+alias cscp="scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 # Mercurial
 # alias hgb='hg bookmark'
