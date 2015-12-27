@@ -64,17 +64,8 @@ bind '"\e[B": history-search-forward'
 bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-forward'
 
-#-----------------------------------------------------------------------------#
-# Git Exports
-# Replaced by ~/.gitconfig.local :
-# [user]
-#   name  = Matthias Thubauville
-#   email = matthias.thubo@gmail.com
-export GIT_AUTHOR_NAME="Matthias Thubauville"
-export GIT_AUTHOR_EMAIL=matthias.thubo@gmail.com
-export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-
+# Unlimit number of processes
+ulimit -s unlimited
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
@@ -107,6 +98,15 @@ fi
 if [[ -e $HOME/.rvm/scripts/rvm ]]; then
   source "$HOME/.rvm/scripts/rvm"
 fi
+
+#-----------------------------------------------------------------------------#
+# Git Exports
+# Replaced by ~/.gitconfig.local :
+# [user]
+#   name  = Matthias Thubauville
+#   email = matthias.thubo@gmail.com
+export GIT_AUTHOR_NAME="Matthias Thubauville"
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 
 #-----------------------------------------------------------------------------#
 # HG Prompt
@@ -254,7 +254,7 @@ Lightcyan='\[\e[1;36m\]'
 Reset='\[\e[0m\]'
 # FancyX='\342\234\227'
 # Checkmark='\342\234\223'
-
+#-----------------------------------------------------------------------------#
 # Function to set the Window title
 setxtermWindowTitle()
 {
@@ -289,7 +289,6 @@ set_prompt ()
         setscreenWindowTitle "$WINDOW_TITLE"
       ;;
   esac
-
 }
 # Sync the history with every new prompy between shells
 # export PROMPT_COMMAND='history -a; history -c; history -r; set_prompt'
