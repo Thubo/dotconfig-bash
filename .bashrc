@@ -100,14 +100,6 @@ if [[ -e $HOME/.rvm/scripts/rvm ]]; then
 fi
 
 #-----------------------------------------------------------------------------#
-#-----------------------------------------------------------------------------#
-#-----------------------------------------------------------------------------#
-# Autojump
-if [[ -e /opt/autojump/bin/autojump.bash ]]; then
-  source "/opt/autojump/bin/autojump.bash"
-fi
-
-#-----------------------------------------------------------------------------#
 # Git Exports
 # Replaced by ~/.gitconfig.local :
 # [user]
@@ -324,6 +316,16 @@ set_prompt ()
 # export PROMPT_COMMAND='history -a; history -c; history -r; set_prompt'
 # 'Normal' history behavior
 export PROMPT_COMMAND='set_prompt'
+
+#-----------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------#
+# Autojump
+# (extends $PROMPT_COMMAND, therefore keep it last)
+if [[ -f /opt/autojump/bin/autojump.bash ]]; then
+  source "/opt/autojump/bin/autojump.bash"
+fi
+
 #-----------------------------------------------------------------------------#
 # Dynamic 'motd' - not realy a motd, but similar function
 if type dynmotd > /dev/null 2>&1 ; then
