@@ -53,6 +53,7 @@ alias goto="cd $(cat ~/.pwd)"
 alias root="sudo -i"
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias latexmk='docker run --name latexmk_$(basename $PWD) --rm -v ${PWD}:/data thubo/latexmk'
 
 # Usage:
 # echo "Hello Alert!" | alert
