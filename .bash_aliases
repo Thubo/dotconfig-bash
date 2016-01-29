@@ -53,6 +53,17 @@ alias goto="cd $(cat ~/.pwd)"
 alias root="sudo -i"
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+
+# Docker
+# Kill all running containers.
+alias dockerkillall='docker kill $(docker ps -q)'
+# Delete all stopped containers.
+alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q)'
+# Delete all untagged images.
+alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && docker rmi $(docker images -q -f dangling=true)'
+# Delete all stopped containers and untagged images.
+alias dockerclean='dockercleanc || true && dockercleani'
+# LaTeXMK from docker container
 alias latexmk='docker run --name latexmk_$(basename $PWD) --rm -v ${PWD}:/data thubo/latexmk'
 
 # Usage:
