@@ -30,14 +30,16 @@ alias fgrep='fgrep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
 alias egrep='egrep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
 
 # Software
-alias vi='vim'
-alias tmux='tmux -2 -u'
-alias view='vim -R'
+alias enw='emacs -nw'
 alias g='git'
+alias gitconfig='vim $HOME/.gitconfig'
+alias tmux='tmux -2 -u'
+alias v='vagrant'
+alias vi='vim'
+alias view='vim -R'
+# tmux and screen sessions
 alias myscreen='screen -RR $USER'
 alias mytmux='tmux -2 -u new-session -A -s $USER'
-alias gitconfig='vim $HOME/.gitconfig'
-alias enw='emacs -nw'
 
 # Nice Stuff
 alias ..='cd ..'
