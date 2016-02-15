@@ -1,6 +1,7 @@
 *
 !/.bash_aliases
 !/.bash_functions
+!/.bash_profile
 !/.bashrc
 !/.gitignore.d
 !/.gitignore.d/bash

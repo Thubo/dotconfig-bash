@@ -10,6 +10,8 @@ alias cp='cp -i'
 alias cpr='cp -i -r'
 
 # Add some easy shortcuts for formatted directory listings and add a touch of color.
+alias lS='ls -lhFSr --color=auto'
+alias lSm='ls -lhFSr --color=auto | more'
 alias la='ls -AhlF --color=auto'
 alias lam='ls -AhlF --color=auto | more'
 alias lh='ls -Ahld --color=auto .?*'
@@ -17,7 +19,9 @@ alias lhm='ls -Ahld --color=auto .?* | more'
 alias ll='ls -lhF --color=auto'
 alias llm='ls -lhF --color=auto | more'
 alias ls='ls -CF --color=auto'
+alias lsm='ls -CF --color=auto | more'
 alias lt='ls -lhFtr --color=auto'
+alias ltm='ls -lhFtr --color=auto | more'
 
 # Make grep more user friendly by highlighting matches
 # and exclude grepping through .svn folders.
@@ -26,14 +30,16 @@ alias fgrep='fgrep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
 alias egrep='egrep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
 
 # Software
-alias vi='vim'
-alias tmux='tmux -2 -u'
-alias view='vim -R'
+alias enw='emacs -nw'
 alias g='git'
+alias gitconfig='vim $HOME/.gitconfig'
+alias tmux='tmux -2 -u'
+alias v='vagrant'
+alias vi='vim'
+alias view='vim -R'
+# tmux and screen sessions
 alias myscreen='screen -RR $USER'
 alias mytmux='tmux -2 -u new-session -A -s $USER'
-alias gitconfig='vim $HOME/.gitconfig'
-alias enw='emacs -nw'
 
 # Nice Stuff
 alias ..='cd ..'
@@ -50,6 +56,18 @@ alias root="sudo -i"
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 
+# Docker
+# Kill all running containers.
+alias dockerkillall='docker kill $(docker ps -q)'
+# Delete all stopped containers.
+alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q)'
+# Delete all untagged images.
+alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && docker rmi $(docker images -q -f dangling=true)'
+# Delete all stopped containers and untagged images.
+alias dockerclean='dockercleanc || true && dockercleani'
+# LaTeXMK from docker container
+alias latexmk='docker run --name latexmk_$(basename $PWD) --rm -v ${PWD}:/data thubo/latexmk'
+
 # Usage:
 # echo "Hello Alert!" | alert
 # echo "Hello Alert!" ; alert
@@ -57,6 +75,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Ugly Stuff
 alias cssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+alias cscp="scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 # Mercurial
 # alias hgb='hg bookmark'
