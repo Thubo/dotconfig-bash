@@ -56,6 +56,9 @@ fi
 # Dircolors
 eval "`dircolors`"
 
+# Default editor
+export EDITOR=vim
+
 # Search in history
 # ...using the arrow keys
 bind '"\e[A": history-search-backward'
