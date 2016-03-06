@@ -91,3 +91,8 @@ alias cscp="scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias irssi='screen -S irssi -xR irssi'
 alias mrj='mr -m -j10'
 
+# AWK
+alias awn1="awk '{print \$1}'"
+alias awn2="awk '{print \$2}'"
+alias awn3="awk '{print \$3}'"
+alias awnf="awk '{print \$NF}'"
