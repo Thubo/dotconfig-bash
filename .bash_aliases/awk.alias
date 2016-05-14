@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# AWK
+alias awkn1="awk '{print \$1}'"
+alias awkn2="awk '{print \$2}'"
+alias awkn3="awk '{print \$3}'"
+alias awknf="awk '{print \$NF}'"

@@ -33,6 +33,8 @@ alias egrep='egrep --color=auto --exclude-dir=\.svn --exclude-dir=\.git'
 alias enw='emacs -nw'
 alias g='git'
 alias gitconfig='vim $HOME/.gitconfig'
+alias irssi='screen -S irssi -xR irssi'
+alias mrj='mr -m -j10'
 alias tmux='tmux -2 -u'
 alias v='vagrant'
 alias vi='vim'
@@ -41,32 +43,23 @@ alias view='vim -R'
 alias myscreen='screen -RR $USER'
 alias mytmux='tmux -2 -u new-session -A -s $USER'
 
-# Nice Stuff
-alias ..='cd ..'
-alias ...='cd ../..'
+# Copy & Paste
 alias c="tr -d '\n' | xclip -selection p"
 alias cc="xclip -selection c"
 alias p="xclip -o -selection p"
 alias pp="xclip -o -selection c"
-alias awknf="awk '{print \$NF}'"
-alias bsource="source ~/.bashrc"
+
+# Jump back and forth
 alias swd="echo $(pwd) > ~/.pwd"
 alias goto="cd $(cat ~/.pwd)"
+
+# Nice Stuff
+alias ..='cd ..'
+alias ...='cd ../..'
+alias bsource="source ~/.bashrc"
 alias root="sudo -i"
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-
-# Docker
-# Kill all running containers.
-alias dockerkillall='docker kill $(docker ps -q)'
-# Delete all stopped containers.
-alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q)'
-# Delete all untagged images.
-alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && docker rmi $(docker images -q -f dangling=true)'
-# Delete all stopped containers and untagged images.
-alias dockerclean='dockercleanc || true && dockercleani'
-# LaTeXMK from docker container
-alias latexmk='docker run --name latexmk_$(basename $PWD) --rm -v ${PWD}:/data thubo/latexmk'
 
 # Usage:
 # echo "Hello Alert!" | alert
@@ -76,23 +69,3 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # Ugly Stuff
 alias cssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 alias cscp="scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-
-# Mercurial
-# alias hgb='hg bookmark'
-# alias hgc='hg crecord'
-# alias hgh='hg help'
-# alias hgi='hg incoming -gn --stat -p'
-# alias hgo='hg outgoing -gn --stat -p'
-# alias hgp='grep "default" .hg/hgrc'
-# alias hgs='hg status'
-# alias hgv='hg view'
-
-# Programms
-alias irssi='screen -S irssi -xR irssi'
-alias mrj='mr -m -j10'
-
-# AWK
-alias awn1="awk '{print \$1}'"
-alias awn2="awk '{print \$2}'"
-alias awn3="awk '{print \$3}'"
-alias awnf="awk '{print \$NF}'"
