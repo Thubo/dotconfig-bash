@@ -74,12 +74,12 @@ ulimit -s unlimited
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 # Source aliases
-if [ -d $HOME/.bash_aliases ]; then
-  for file in $HOME/.bash_aliases/*.alias; do . $file; done
+if [ -d $HOME/.helper/aliases ]; then
+  for file in $HOME/.helper/aliases/*.alias; do . $file; done
 fi
 # Source functions
-if [ -d $HOME/.bash_functions ]; then
-  for file in $HOME/.bash_functions/*.sh; do . $file; done
+if [ -d $HOME/.helper/functions ]; then
+  for file in $HOME/.helper/functions/*.function; do . $file; done
 fi
 
 #-----------------------------------------------------------------------------#
@@ -101,17 +101,6 @@ fi
 if [[ -e $HOME/.rvm/scripts/rvm ]]; then
   source "$HOME/.rvm/scripts/rvm"
 fi
-
-#-----------------------------------------------------------------------------#
-# Git Exports
-# Replaced by ~/.gitconfig.local :
-# [user]
-#   name  = Matthias Thubauville
-#   email = matthias.thubo@gmail.com
-# export GIT_AUTHOR_NAME="Matthias Thubauville"
-# export GIT_AUTHOR_EMAIL=matthias.thubo@gmail.com
-# export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-# export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 #-----------------------------------------------------------------------------#
 # HG Prompt
