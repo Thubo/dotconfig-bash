@@ -73,13 +73,13 @@ ulimit -s unlimited
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
-# Source global aliases
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+# Source aliases
+if [ -d $HOME/.helper/aliases ]; then
+  for file in $HOME/.helper/aliases/*.alias; do . $file; done
 fi
-# Source global functions
-if [ -d $HOME/.bash_functions ]; then
-  for file in $HOME/.bash_functions/*.sh; do . $file; done
+# Source functions
+if [ -d $HOME/.helper/functions ]; then
+  for file in $HOME/.helper/functions/*.function; do . $file; done
 fi
 
 #-----------------------------------------------------------------------------#
